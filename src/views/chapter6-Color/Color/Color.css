@@ -1,0 +1,14 @@
+section.color {
+    width:200px;
+    height:150px;
+}
+div.color {
+    width: 200px;
+    height: 100px;
+}
+.remove-btn{
+    float:right;
+}
+.color h1{
+    float:left;
+}

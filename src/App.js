@@ -15,7 +15,8 @@ import './App.css';
 // import ReactRedux4 from './views/chapter9-react-redux4/Main'
 // import ReactReduxRouter1 from './views/chapter11-react-router1/Main'
 // import ReactReduxRouter2 from './views/chapter11-react-router2/Main'
-import Chapter12Demo1 from './views/chapter12-demo1/Main'
+// import Chapter12Demo1 from './views/chapter12-demo1/Main'
+import Chapter12Demo2 from './views/chapter12-demo2/Main'
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
         {/*<ReactRedux4 />*/}
         {/*<ReactReduxRouter1 />*/}
         {/*<ReactReduxRouter2 />*/}
-        <Chapter12Demo1 />
+        {/*<Chapter12Demo1 />*/}
+        <Chapter12Demo2 />
     </div>
   );
 }

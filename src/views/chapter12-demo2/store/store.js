@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { colors } from "./redux/reducer";
 import initData from "../data/initState";
+import thunk from 'redux-thunk';
 
 //定义一个中间件，具备记录action的日志功能
 const clientLogger = store => next => action =>{
@@ -21,10 +22,13 @@ const serverLogger = store => next => action =>{
     return next(action)
 }
 
-const middleware = server => (server) ? serverLogger : clientLogger
+const middleware = server => [
+    (server) ? serverLogger : clientLogger,
+    thunk
+]
 
 const storeFactory = ( server=false, initState=initData )=>
-    applyMiddleware(middleware(server))(createStore)(
+    applyMiddleware(...middleware(server))(createStore)(
         combineReducers({ colors }),
         initData
     )

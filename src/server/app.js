@@ -9,6 +9,8 @@ import ManagerColor from '../views/chapter12-demo2/manager_color/Main';
 import storeFactory from "../views/chapter12-demo2/store/store";
 import initState from '../views/chapter12-demo2/data/initState.json';
 import React from "react";
+import bodyParser from 'body-parser';
+import api from './color-api';
 
 const serverStore = storeFactory(true, initState)
 serverStore.subscribe( ()=>
@@ -77,6 +79,8 @@ const respond = (req, res) => res.status(200).send(htmlResponse(req.url))
 export default express()
         .use(logger)
         .use(fileAssets)
+        .use(bodyParser)
         .use(addStoreToRequestPipeline)
+        .use('/api', api)
         .use(respond)
 

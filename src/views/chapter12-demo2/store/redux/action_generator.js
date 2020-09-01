@@ -1,23 +1,41 @@
-import C from "./constants"
+import C from "./constants";
+import fetch from 'isomorphic-fetch';
 
-const addColor = (title, color) => ({
-    type: C.ADD_COLOR,
-    id: (+new Date()).toString(),
-    title,
-    color,
-    timestamp: (+new Date()).toString()
-})
+const parseResponse = response => response.json()
 
-const removeColor = (id) => ({
-    type: C.REMOVE_COLOR,
-    id
-})
+const logError = error => console.error(error)
 
-const rateColor = (id, rating) => ({
-    type: C.RATE_COLOR,
-    id,
-    rating
-})
+const fetchThenDispatch = (dispatch, url, method, body) =>
+    fetch(url, {
+        method,
+        body,
+        header: {'Content-Type': 'application/json'}
+    }).then(parseResponse)
+    .then(dispatch)
+    .catch(logError)
+
+const addColor = (title, color) => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        '/api/colors',
+        'POST',
+        JSON.stringify({title, color})
+    )
+
+const removeColor = id => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        `/api/colors/${id}`,
+        'DELETE'
+    )
+
+const rateColor = (id, rating) => dispatch =>
+    fetchThenDispatch(
+        dispatch,
+        `/api/colors/${id}`,
+        'PUT',
+        JSON.stringify({rating})
+    )
 
 const sortColors = (sortedBy) =>
     (sortedBy === "rating") ?
